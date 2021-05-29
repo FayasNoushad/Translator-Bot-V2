@@ -107,7 +107,8 @@ async def translate(bot, update):
     if " | " in update.text:
         text, language = update.text.split(" | ", -1)
     else:
-        return
+        return 
+    await update.reply_chat_action("typing")
     translate = TRANSLATOR.translate(text, dest=language)
     try:
         await update.reply_text(
