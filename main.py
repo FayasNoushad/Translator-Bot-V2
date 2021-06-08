@@ -112,10 +112,12 @@ async def translate(bot, update):
     await update.reply_chat_action("typing")
     message = await update.reply_text("`Translating...`")
     try:
-        translate = translator.translate(text, dest=str(language))
+        translate = translator.translate(text, src=language)
+        text = translate.text + "\n\n" + "Made by @FayasNoushad"
         await message.edit_text(
-            text=translate.text,
-            reply_markup=CLOSE_BUTTON
+            text=text,
+            reply_markup=CLOSE_BUTTON,
+            disable_web_page_preview=True
         )
     except Exception as error:
         print(error)
