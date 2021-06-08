@@ -114,6 +114,8 @@ async def translate(bot, update):
         translate = TRANSLATOR.translate(text, dest=language)
     except Exception as error:
         print(error)
+        await message.edit_text("Something wrong. Contact @TheFayas.")
+        return
     try:
         await message.edit_text(
             text=translate.text,
@@ -121,5 +123,7 @@ async def translate(bot, update):
         )
     except Exception as error:
         print(error)
+        await message.edit_text("Something wrong. Contact @TheFayas.")
+        return
 
 FayasNoushad.run()
