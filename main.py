@@ -105,11 +105,14 @@ async def start(bot, update):
 @FayasNoushad.on_message(filters.private & filters.text)
 async def translate(bot, update):
     if " | " in update.text:
-        text, language = update.text.split(" | ", -1)
+        text, language = update.text.split(" | ", 1)
     else:
         return 
     await update.reply_chat_action("typing")
-    translate = TRANSLATOR.translate(text, dest=language)
+    translate = TRANSLATOR.translate(
+        text,
+        dest=language
+    )
     try:
         await update.reply_text(
             text=translate.text,
