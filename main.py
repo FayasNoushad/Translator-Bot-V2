@@ -16,7 +16,6 @@ FayasNoushad = Client(
     api_hash = os.environ["API_HASH"]
 )
 
-TRANSLATOR = Translator()
 START_TEXT = """
 Hello {}, I am a google translator telegram bot.
 
@@ -107,11 +106,12 @@ async def translate(bot, update):
     if " | " in update.text:
         text, language = update.text.split(" | ", 1)
     else:
-        return 
+        return
+    translator = Translator()
     await update.reply_chat_action("typing")
     message = await update.reply_text("`Translating...`")
     try:
-        translate = TRANSLATOR.translate(text, dest=language)
+        translate = translator.translate(text, dest=language)
     except Exception as error:
         print(error)
         await message.edit_text("Something wrong. Contact @TheFayas.")
