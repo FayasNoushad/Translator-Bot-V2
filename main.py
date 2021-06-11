@@ -66,6 +66,11 @@ CLOSE_BUTTON = InlineKeyboardMarkup(
         InlineKeyboardButton('Close', callback_data='close')
         ]]
     )
+TRANSLATE_BUTTON = InlineKeyboardMarkup(
+        [[
+        InlineKeyboardButton('⚙ Join Updates Channel ⚙', url='https://telegram.me/FayasNoushad')
+        ]]
+    )
 
 @FayasNoushad.on_callback_query()
 async def cb_data(bot, update):
@@ -113,12 +118,23 @@ async def translate(bot, update):
     message = await update.reply_text("`Translating...`")
     try:
         translate = translator.translate(text, dest=language)
-        text = f"**Translated to {language}**" + "\n\n" + translate.text + "\n\n" + "Made by @FayasNoushad"
-        await message.edit_text(
-            text=text,
-            reply_markup=CLOSE_BUTTON,
-            disable_web_page_preview=True
-        )
+        text = f"**Translated to {language}**"
+        text += f"\n\n{translate.text}"
+        text += "\n\nMade by @FayasNoushad"
+        if len(text) < 4096:
+            await message.edit_text(
+                text=text,
+                disable_web_page_preview=True,
+                reply_markup=TRANSLATE_BUTTON
+            )
+        else:
+            with BytesIO(str.encode(str(text))) as translate_file:
+                translate_file.name = language + ".txt"
+                await message.reply_document(
+                    document=translate_file",
+                    caption="Made by @FayasNoushad",
+                    reply_markup=TRANSLATE_BUTTON
+                )
     except Exception as error:
         print(error)
         await message.edit_text("Something wrong. Contact @TheFayas.")
