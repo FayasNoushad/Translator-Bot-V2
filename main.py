@@ -71,6 +71,32 @@ TRANSLATE_BUTTON = InlineKeyboardMarkup(
         InlineKeyboardButton('⚙ Join Updates Channel ⚙', url='https://telegram.me/FayasNoushad')
         ]]
     )
+LANGUAGE_BUTTONS = InlineKeyboardMarkup(
+    [[
+    InlineKeyboardButton("മലയാളം", callback_data="Malayalam"),
+    InlineKeyboardButton("தமிழ்", callback_data="Tamil"),
+    InlineKeyboardButton("हिन्दी", callback_data="Hindi")
+    ],[
+    InlineKeyboardButton("ಕನ್ನಡ", callback_data="Kannada"),
+    InlineKeyboardButton("తెలుగు", callback_data="Telugu"),
+    InlineKeyboardButton("मराठी", callback_data="Marathi")
+    ],[
+    InlineKeyboardButton("ગુજરાતી", callback_data="Gujarati"),
+    InlineKeyboardButton("ଓଡ଼ିଆ", callback_data="Odia"),
+    InlineKeyboardButton("বাংলা", callback_data="bn")
+    ],[
+    InlineKeyboardButton("ਪੰਜਾਬੀ", callback_data="Punjabi"),
+    InlineKeyboardButton("فارسی", callback_data="Persian"),
+    InlineKeyboardButton("English", callback_data="English")
+    ],[
+    InlineKeyboardButton("español", callback_data="Spanish"),
+    InlineKeyboardButton("français", callback_data="French"),
+    InlineKeyboardButton("русский", callback_data="Russian")
+    ],[
+    InlineKeyboardButton("עִברִית", callback_data="hebrew"),
+    InlineKeyboardButton("العربية", callback_data="arabic")
+    ]]
+)
 
 @FayasNoushad.on_callback_query()
 async def cb_data(bot, update):
