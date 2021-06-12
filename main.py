@@ -29,10 +29,10 @@ example :- `This is a sample text | ml`
 Made by @FayasNoushad
 """
 ABOUT_TEXT = """
-- **Bot :** `Translator Bot`
+- **Bot :** `Translator Bot V2`
 - **Creator :** [Fayas](https://telegram.me/TheFayas)
 - **Channel :** [Fayas Noushad](https://telegram.me/FayasNoushad)
-- **Source :** [Click here](https://github.com/FayasNoushad/Translator-Bot)
+- **Source :** [Click here](https://github.com/FayasNoushad/Translator-Bot-V2)
 - **Language :** [Python3](https://python.org)
 - **Library :** [Pyrogram](https://pyrogram.org)
 - **Server :** [Heroku](https://heroku.com)
