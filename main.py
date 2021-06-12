@@ -106,29 +106,38 @@ async def start(bot, update):
         reply_markup=reply_markup
     )
 
-@FayasNoushad.on_message(filters.private & filters.text)
+@FayasNoushad.on_message((filters.private | filters.group) & filters.text)
 async def translate(bot, update):
-    if " | " in update.text:
-        text, language = update.text.split(" | ", 1)
+    if update.chat.type == "private":
+        if " | " in update.text:
+            text, language = update.text.split(" | ", 1)
+        else:
+            text = update.text
+            language = 'en'
+    if update.chat.type == "supergroup" or "group":
+        text = update.reply_to_message.text
+        if " " in update.text:
+            command, language = update.text.split(" | ", 1)
+        else:
+            language = 'en'
     else:
-        text = update.text
-        language = 'en'
+        return
     translator = Translator()
     await update.reply_chat_action("typing")
     message = await update.reply_text("`Translating...`")
     try:
         translate = translator.translate(text, dest=language)
-        text = f"**Translated to {language}**"
-        text += f"\n\n{translate.text}"
-        text += "\n\nMade by @FayasNoushad"
-        if len(text) < 4096:
+        translate_text = f"**Translated to {language}**"
+        translate_text += f"\n\n{translate.text}"
+        translate_text += "\n\nMade by @FayasNoushad"
+        if len(translate_text) < 4096:
             await message.edit_text(
-                text=text,
+                text=translate_text,
                 disable_web_page_preview=True,
                 reply_markup=TRANSLATE_BUTTON
             )
         else:
-            with BytesIO(str.encode(str(text))) as translate_file:
+            with BytesIO(str.encode(str(translate_text))) as translate_file:
                 translate_file.name = language + ".txt"
                 await update.reply_document(
                     document=translate_file",
