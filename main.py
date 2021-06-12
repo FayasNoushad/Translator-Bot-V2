@@ -130,11 +130,12 @@ async def translate(bot, update):
         else:
             with BytesIO(str.encode(str(text))) as translate_file:
                 translate_file.name = language + ".txt"
-                await message.reply_document(
+                await update.reply_document(
                     document=translate_file",
                     caption="Made by @FayasNoushad",
                     reply_markup=TRANSLATE_BUTTON
                 )
+                await message.delete()
     except Exception as error:
         print(error)
         await message.edit_text("Something wrong. Contact @TheFayas.")
