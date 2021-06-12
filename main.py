@@ -118,7 +118,7 @@ async def cb_data(bot, update):
             disable_web_page_preview=True,
             reply_markup=ABOUT_BUTTONS
         )
-    else:
+    elif update.data == "close":
         await update.message.delete()
     
 
