@@ -128,8 +128,8 @@ async def cb_data(bot, update):
             translate = translator.translate(text, dest=language)
             translate_text = f"**Translated to {language}**"
             translate_text += f"\n\n{translate.text}"
-            translate_text += "\n\nMade by @FayasNoushad"
             if len(translate_text) < 4096:
+                translate_text += "\n\nMade by @FayasNoushad"
                 await message.edit_text(
                     text=translate_text,
                     disable_web_page_preview=True,
