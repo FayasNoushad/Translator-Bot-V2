@@ -1,4 +1,4 @@
-# Translator-Bot
+# Translator-Bot-V2
 
 A simple google translator telegram bot
 
