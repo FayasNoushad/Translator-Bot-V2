@@ -23,8 +23,7 @@ Made by @FayasNoushad
 """
 HELP_TEXT = """
 - Just send a text with language code
-
-example :- `This is a sample text | ml`
+- And select a language for translating
 
 Made by @FayasNoushad
 """
