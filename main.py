@@ -144,9 +144,9 @@ async def cb_data(bot, update):
                     reply_markup=TRANSLATE_BUTTON
                 )
                 await message.delete()
-    except Exception as error:
-        print(error)
-        await message.edit_text("Something wrong. Contact @TheFayas.")
+        except Exception as error:
+            print(error)
+            await message.edit_text("Something wrong. Contact @TheFayas.")
 
 @FayasNoushad.on_message(filters.command(["start"]))
 async def start(bot, update):
