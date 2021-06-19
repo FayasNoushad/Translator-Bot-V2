@@ -121,7 +121,7 @@ async def cb_data(bot, update):
         await update.message.delete()
     else:
         message = await update.message.edit_text("`Translating...`")
-        text = update.reply_to_message.text
+        text = update.reply_to_message.message.text
         language = update.data
         translator = Translator()
         try:
