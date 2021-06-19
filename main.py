@@ -163,7 +163,8 @@ async def translate(bot, update):
     await update.reply_text(
         text="Select a language below for translating",
         disable_web_page_preview=True,
-        reply_markup=LANGUAGE_BUTTONS
+        reply_markup=LANGUAGE_BUTTONS,
+        quote=True
     )
     
 FayasNoushad.run()
