@@ -137,12 +137,12 @@ async def cb_data(bot, update):
                 )
             else:
                 with BytesIO(str.encode(str(translate_text))) as translate_file:
-                translate_file.name = language + ".txt"
-                await update.reply_document(
-                    document=translate_file",
-                    caption="Made by @FayasNoushad",
-                    reply_markup=TRANSLATE_BUTTON
-                )
+                    translate_file.name = language + ".txt"
+                    await update.reply_document(
+                        document=translate_file",
+                        caption="Made by @FayasNoushad",
+                        reply_markup=TRANSLATE_BUTTON
+                    )
                 await message.delete()
         except Exception as error:
             print(error)
