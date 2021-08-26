@@ -1,7 +1,7 @@
 {
-    "name": "Translator-Bot",
-    "description": "A simple google translator telegram bot",
-    "repository": "https://github.com/FayasNoushad/Translator-Bot",
+    "name": "Translator-Bot-V2",
+    "description": "A simple google translator telegram bot version 2",
+    "repository": "https://github.com/FayasNoushad/Translator-Bot-V2",
     "keywords": [
         "telegram",
         "pyrogram",
