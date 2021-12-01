@@ -1,21 +1,5 @@
-```
-Made with Python3
-(C) @FayasNoushad
-Copyright permission under MIT License
-License -> https://github.com/FayasNoushad/Translator-Bot-V2/blob/main/LICENSE
-```
-
----
-
-## Deploy
-
-```sh
-git clone https://github.com/FayasNoushad/Translator-Bot-V2.git
-cd Translator-Bot-V2
-pip3 install -r requirements.txt
-# <Create Variables appropriately>
-python3 main.py
-```
+# Translator Bot V2
+A telegram language translator bot version 2
 
 ---
 
@@ -27,11 +11,8 @@ python3 main.py
 
 ---
 
-## Credits
+## Old Version
 
-- [Fayas Noushad](https://github.com/FayasNoushad)
-- [Pyrogram](https://github.com/pyrogram/pyrogram)
-- [Google Translator](https://translate.google.com)
 - [Translator Bot](https://github.com/FayasNoushad/Translator-Bot)
 
 ---
