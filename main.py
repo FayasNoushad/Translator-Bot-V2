@@ -1,9 +1,3 @@
-# Made with python3
-# (C) @FayasNoushad
-# Copyright permission under MIT License
-# All rights reserved by FayasNoushad
-# License -> https://github.com/FayasNoushad/Translator-Bot-V2/blob/main/LICENSE
-
 import os
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
@@ -18,85 +12,101 @@ Bot = Client(
 )
 
 
-START_TEXT = """
-Hello {}, I am a google translator telegram bot.
+START_TEXT = """Hello {},
+I am a google translator telegram bot.
 
-Made by @FayasNoushad
-"""
-HELP_TEXT = """
+Made by @FayasNoushad"""
+HELP_TEXT = """**More Help**
+
 - Just send a text with language code
 - And select a language for translating
 
-Made by @FayasNoushad
-"""
-ABOUT_TEXT = """
+Made by @FayasNoushad"""
+ABOUT_TEXT = """**About Me**
+
 - **Bot :** `Translator Bot V2`
 - **Creator :** [Fayas](https://telegram.me/TheFayas)
 - **Channel :** [Fayas Noushad](https://telegram.me/FayasNoushad)
 - **Source :** [Click here](https://github.com/FayasNoushad/Translator-Bot-V2)
 - **Language :** [Python3](https://python.org)
-- **Library :** [Pyrogram](https://pyrogram.org)
-- **Server :** [Heroku](https://heroku.com)
-"""
+- **Library :** [Pyrogram](https://pyrogram.org)"""
 START_BUTTONS = InlineKeyboardMarkup(
-        [[
-        InlineKeyboardButton('Help', callback_data='help'),
-        InlineKeyboardButton('About', callback_data='about'),
-        InlineKeyboardButton('Close', callback_data='close')
-        ]]
-    )
+    [
+        [
+            InlineKeyboardButton('Help', callback_data='help'),
+            InlineKeyboardButton('About', callback_data='about'),
+            InlineKeyboardButton('Close', callback_data='close')
+        ]
+    ]
+)
 HELP_BUTTONS = InlineKeyboardMarkup(
-        [[
-        InlineKeyboardButton('Home', callback_data='home'),
-        InlineKeyboardButton('About', callback_data='about'),
-        InlineKeyboardButton('Close', callback_data='close')
-        ]]
-    )
+    [
+        [
+            InlineKeyboardButton('Home', callback_data='home'),
+            InlineKeyboardButton('About', callback_data='about'),
+            InlineKeyboardButton('Close', callback_data='close')
+        ]
+    ]
+)
 ABOUT_BUTTONS = InlineKeyboardMarkup(
-        [[
-        InlineKeyboardButton('Channel', url='https://telegram.me/FayasNoushad'),
-        InlineKeyboardButton('Feedback', url='https://telegram.me/TheFayas')
-        ],[
-        InlineKeyboardButton('Home', callback_data='home'),
-        InlineKeyboardButton('Help', callback_data='help'),
-        InlineKeyboardButton('Close', callback_data='close')
-        ]]
-    )
+    [
+        [
+            InlineKeyboardButton('Channel', url='https://telegram.me/FayasNoushad'),
+            InlineKeyboardButton('Feedback', url='https://telegram.me/TheFayas')
+        ],
+        [
+            InlineKeyboardButton('Home', callback_data='home'),
+            InlineKeyboardButton('Help', callback_data='help'),
+            InlineKeyboardButton('Close', callback_data='close')
+        ]
+    ]
+)
 CLOSE_BUTTON = InlineKeyboardMarkup(
-        [[
-        InlineKeyboardButton('Close', callback_data='close')
-        ]]
-    )
+    [
+        [
+            InlineKeyboardButton('Close', callback_data='close')
+        ]
+    ]
+)
 TRANSLATE_BUTTON = InlineKeyboardMarkup(
-        [[
+    [
+        [
         InlineKeyboardButton('⚙ Join Updates Channel ⚙', url='https://telegram.me/FayasNoushad')
-        ]]
-    )
+        ]
+    ]
+)
 LANGUAGE_BUTTONS = InlineKeyboardMarkup(
-    [[
-    InlineKeyboardButton("മലയാളം", callback_data="Malayalam"),
-    InlineKeyboardButton("தமிழ்", callback_data="Tamil"),
-    InlineKeyboardButton("हिन्दी", callback_data="Hindi")
-    ],[
-    InlineKeyboardButton("ಕನ್ನಡ", callback_data="Kannada"),
-    InlineKeyboardButton("తెలుగు", callback_data="Telugu"),
-    InlineKeyboardButton("मराठी", callback_data="Marathi")
-    ],[
-    InlineKeyboardButton("ગુજરાતી", callback_data="Gujarati"),
-    InlineKeyboardButton("ଓଡ଼ିଆ", callback_data="Odia"),
-    InlineKeyboardButton("বাংলা", callback_data="bn")
-    ],[
-    InlineKeyboardButton("ਪੰਜਾਬੀ", callback_data="Punjabi"),
-    InlineKeyboardButton("فارسی", callback_data="Persian"),
-    InlineKeyboardButton("English", callback_data="English")
-    ],[
-    InlineKeyboardButton("español", callback_data="Spanish"),
-    InlineKeyboardButton("français", callback_data="French"),
-    InlineKeyboardButton("русский", callback_data="Russian")
-    ],[
-    InlineKeyboardButton("עִברִית", callback_data="hebrew"),
-    InlineKeyboardButton("العربية", callback_data="arabic")
-    ]]
+    [
+        [
+            InlineKeyboardButton("മലയാളം", callback_data="Malayalam"),
+            InlineKeyboardButton("தமிழ்", callback_data="Tamil"),
+            InlineKeyboardButton("हिन्दी", callback_data="Hindi")
+        ],
+        [
+            InlineKeyboardButton("ಕನ್ನಡ", callback_data="Kannada"),
+            InlineKeyboardButton("తెలుగు", callback_data="Telugu"),
+            InlineKeyboardButton("मराठी", callback_data="Marathi")
+        ],
+        [
+            InlineKeyboardButton("ગુજરાતી", callback_data="Gujarati"),
+            InlineKeyboardButton("ଓଡ଼ିଆ", callback_data="Odia"),
+            InlineKeyboardButton("বাংলা", callback_data="bn")
+        ],
+        [
+            InlineKeyboardButton("ਪੰਜਾਬੀ", callback_data="Punjabi"),
+            InlineKeyboardButton("فارسی", callback_data="Persian"),
+            InlineKeyboardButton("English", callback_data="English")
+        ],
+        [
+            InlineKeyboardButton("español", callback_data="Spanish"),
+            InlineKeyboardButton("français", callback_data="French"),
+            InlineKeyboardButton("русский", callback_data="Russian")
+        ],
+        [
+            InlineKeyboardButton("עִברִית", callback_data="hebrew"),
+            InlineKeyboardButton("العربية", callback_data="arabic")
+        ]
+    ]
 )
 
 
