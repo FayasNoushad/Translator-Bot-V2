@@ -1,4 +1,5 @@
 import os
+from vars import *
 from googletrans import Translator
 from googletrans.constants import LANGUAGES
 from pyrogram import Client, filters
@@ -7,9 +8,9 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 Bot = Client(
     "Translator Bot",
-    bot_token = os.environ["BOT_TOKEN"],
-    api_id = int(os.environ["API_ID"]),
-    api_hash = os.environ["API_HASH"]
+    bot_token=BOT_TOKEN,
+    api_id=API_ID,
+    api_hash=API_HASH
 )
 
 
@@ -235,10 +236,11 @@ async def start(bot, message):
 
 @Bot.on_message(filters.private & filters.text)
 async def translate(bot, message):
+    buttons = CUSTOM_LANGUAGE_BUTTONS if CUSTOM else LANGUAGE_BUTTONS
     await message.reply_text(
         text="Select a language below for translating",
         disable_web_page_preview=True,
-        reply_markup=LANGUAGE_BUTTONS,
+        reply_markup=buttons,
         quote=True
     )
 
