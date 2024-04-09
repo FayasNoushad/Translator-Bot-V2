@@ -30,3 +30,7 @@ A telegram language translator bot version 2
 - [Translator Bot](https://github.com/FayasNoushad/Translator-Bot)
 
 ---
+
+### Use [Translator-Bot-V3](https://github.com/FayasNoushad/Translator-Bot-V3), it is the latest and best version with more features.
+
+---

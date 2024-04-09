@@ -234,6 +234,28 @@ async def start(bot, message):
     )
 
 
+@Bot.on_message(filters.command(["help"]))
+async def help(bot, message):
+    text = HELP_TEXT
+    reply_markup = HELP_BUTTONS
+    await message.reply_text(
+        text=text,
+        disable_web_page_preview=True,
+        reply_markup=reply_markup
+    )
+
+
+@Bot.on_message(filters.command(["about"]))
+async def about(bot, message):
+    text = ABOUT_TEXT
+    reply_markup = ABOUT_BUTTONS
+    await message.reply_text(
+        text=text,
+        disable_web_page_preview=True,
+        reply_markup=reply_markup
+    )
+
+
 @Bot.on_message(filters.private & filters.text)
 async def translate(bot, message):
     buttons = CUSTOM_LANGUAGE_BUTTONS if CUSTOM else LANGUAGE_BUTTONS
