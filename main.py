@@ -256,17 +256,6 @@ async def about(bot, message):
     )
 
 
-@Bot.on_message(filters.private & filters.text)
-async def translate(bot, message):
-    buttons = CUSTOM_LANGUAGE_BUTTONS if CUSTOM else LANGUAGE_BUTTONS
-    await message.reply_text(
-        text="Select a language below for translating",
-        disable_web_page_preview=True,
-        reply_markup=buttons,
-        quote=True
-    )
-
-
 # Language list
 @Bot.on_message(filters.command(["list", "languages", "langs", "languages_list"]))
 async def languages_list(bot, message):
@@ -278,6 +267,20 @@ async def languages_list(bot, message):
         text=languages_text,
         disable_web_page_preview=True,
         reply_markup=TRANSLATE_BUTTON,
+        quote=True
+    )
+
+
+@Bot.on_message(filters.private & filters.text)
+async def translate(bot, message):
+    # to avoid command only messages
+    if message.text.startswith("/") and len(message.text) == 1:
+        return
+    buttons = CUSTOM_LANGUAGE_BUTTONS if CUSTOM else LANGUAGE_BUTTONS
+    await message.reply_text(
+        text="Select a language below for translating",
+        disable_web_page_preview=True,
+        reply_markup=buttons,
         quote=True
     )
 
