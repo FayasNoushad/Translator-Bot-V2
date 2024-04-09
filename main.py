@@ -15,12 +15,12 @@ Bot = Client(
 
 
 START_TEXT = """Hello {},
-I am a google translator telegram bot.
 
-Made by @FayasNoushad"""
+I am a google translator telegram bot. I can translate text to any language."""
+
 HELP_TEXT = """**More Help**
 
-- Just send a text with language code
+- Just send a text/message to translate.
 - And select a language for translating"""
 
 ABOUT_TEXT = """**About Me**

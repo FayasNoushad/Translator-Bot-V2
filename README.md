@@ -12,7 +12,6 @@ A telegram language translator bot version 2
 
 ## Variables
 
-
 ### Required
 
 - `API_HASH` Your API Hash from my.telegram.org
@@ -22,12 +21,6 @@ A telegram language translator bot version 2
 ### Optional
 
 - `CUSTOM` Custom buttons or not for translating
-
----
-
-## Old Version
-
-- [Translator Bot](https://github.com/FayasNoushad/Translator-Bot)
 
 ---
 
