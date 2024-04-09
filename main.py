@@ -1,7 +1,8 @@
 import os
+from googletrans import Translator
+from googletrans.constants import LANGUAGES
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from googletrans import Translator
 
 
 Bot = Client(
@@ -65,7 +66,66 @@ CLOSE_BUTTON = InlineKeyboardMarkup(
 TRANSLATE_BUTTON = InlineKeyboardMarkup(
     [[InlineKeyboardButton('⚙ Feedback ⚙', url='https://telegram.me/FayasNoushad')]]
 )
-LANGUAGE_BUTTONS = InlineKeyboardMarkup(
+
+
+def language_buttons():
+    pages = []
+    button_limit = 2
+    line_limit = 8
+    for language in LANGUAGES:
+        button = InlineKeyboardButton(text=LANGUAGES[language].capitalize(), callback_data=language)
+        if len(pages) == 0 or len(pages[-1]) >= line_limit and len(pages[-1][-1]) >= button_limit:
+            pages.append([[button]])
+        elif len(pages[-1]) == 0 or len(pages[-1][-1]) >= button_limit:
+            pages[-1].append([button])
+        else:
+            pages[-1][-1].append(button)
+    page_no = 0
+    no_buttons = []
+    if len(pages) == 1:
+        return pages
+    for page in pages:
+        page_no += 1
+        page_buttons = []
+        if page == pages[0]:
+            page_buttons.append(
+                InlineKeyboardButton(
+                    text="-->",
+                    callback_data="page+"+str(page_no+1)
+                )
+            )
+        elif page == pages[-1]:
+            page_buttons.append(
+                InlineKeyboardButton(
+                    text="<--",
+                    callback_data="page+"+str(page_no-1)
+                )
+            )
+        else:
+            page_buttons.append(
+                InlineKeyboardButton(
+                    text="<--",
+                    callback_data="page+"+str(page_no-1)
+                )
+            )
+            page_buttons.append(
+                InlineKeyboardButton(
+                    text="-->",
+                    callback_data="page+"+str(page_no+1)
+                )
+            )
+        pages[page_no-1].append(page_buttons)
+        no_buttons.append(
+            InlineKeyboardButton(
+                text=str(page_no),
+                callback_data="page+"+str(page_no)
+            )
+        )
+        pages[page_no-1].append(no_buttons)
+    return pages
+
+
+CUSTOM_LANGUAGE_BUTTONS = InlineKeyboardMarkup(
     [
         [
             InlineKeyboardButton("മലയാളം", callback_data="Malayalam"),
@@ -99,40 +159,52 @@ LANGUAGE_BUTTONS = InlineKeyboardMarkup(
     ]
 )
 
+LANGUAGE_BUTTONS = InlineKeyboardMarkup(
+    language_buttons()[0]
+)
 
 @Bot.on_callback_query()
-async def cb_data(bot, update):
-    if update.data == "home":
-        await update.message.edit_text(
-            text=START_TEXT.format(update.from_user.mention),
+async def cb_data(bot, message):
+    if message.data == "home":
+        await message.message.edit_text(
+            text=START_TEXT.format(message.from_user.mention),
             disable_web_page_preview=True,
             reply_markup=START_BUTTONS
         )
-    elif update.data == "help":
-        await update.message.edit_text(
+    elif message.data == "help":
+        await message.message.edit_text(
             text=HELP_TEXT,
             disable_web_page_preview=True,
             reply_markup=HELP_BUTTONS
         )
-    elif update.data == "about":
-        await update.message.edit_text(
+    elif message.data == "about":
+        await message.message.edit_text(
             text=ABOUT_TEXT,
             disable_web_page_preview=True,
             reply_markup=ABOUT_BUTTONS
         )
-    elif update.data == "close":
-        await update.message.delete()
+    elif message.data == "close":
+        await message.message.delete()
+    elif message.data.startswith("page+"):
+        await message.answer("Processing")
+        page_no = int(message.data.split("+")[1]) - 1
+        await message.message.edit_reply_markup(
+            InlineKeyboardMarkup(
+                language_buttons()[page_no]
+            )
+        )
     else:
-        message = await update.message.edit_text("`Translating...`")
-        text = update.message.reply_to_message.text
-        language = update.data
+        await message.message.edit_text("`Translating...`")
+        text = message.message.reply_to_message.text
+        language = message.data
         translator = Translator()
         try:
             translate = translator.translate(text, dest=language)
-            translate_text = f"**Translated to {language}**"
+            lang_text = f"{LANGUAGES[language].capitalize()} ({language})"
+            translate_text = f"**Translated to {lang_text}**"
             translate_text += f"\n\n{translate.text}"
             if len(translate_text) < 4096:
-                await message.edit_text(
+                await message.message.edit_text(
                     text=translate_text,
                     disable_web_page_preview=True,
                     reply_markup=TRANSLATE_BUTTON
@@ -140,7 +212,7 @@ async def cb_data(bot, update):
             else:
                 with BytesIO(str.encode(str(translate_text))) as translate_file:
                     translate_file.name = language + ".txt"
-                    await update.reply_document(
+                    await message.reply_document(
                         document=translate_file,
                         reply_markup=TRANSLATE_BUTTON
                     )
@@ -151,10 +223,10 @@ async def cb_data(bot, update):
 
 
 @Bot.on_message(filters.command(["start"]))
-async def start(bot, update):
-    text = START_TEXT.format(update.from_user.mention)
+async def start(bot, message):
+    text = START_TEXT.format(message.from_user.mention)
     reply_markup = START_BUTTONS
-    await update.reply_text(
+    await message.reply_text(
         text=text,
         disable_web_page_preview=True,
         reply_markup=reply_markup
@@ -162,8 +234,8 @@ async def start(bot, update):
 
 
 @Bot.on_message(filters.private & filters.text)
-async def translate(bot, update):
-    await update.reply_text(
+async def translate(bot, message):
+    await message.reply_text(
         text="Select a language below for translating",
         disable_web_page_preview=True,
         reply_markup=LANGUAGE_BUTTONS,
